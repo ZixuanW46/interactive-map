@@ -344,17 +344,12 @@ template {
 
 html,
 body {
-  background-color: #2c3e50;
+  background-color: #f2f2f2;
 }
 
 * {
   box-sizing: border-box;
   font-family: sans-serif;
-}
-
-a {
-  text-decoration: none;
-  color: #3498db;
 }
 
 @media only screen and (min-width: 1200px) {
@@ -385,23 +380,6 @@ main {
   display: flex;
   position: relative;
   height: 100%;
-}
-
-section.sidebar {
-  flex: 0 0 20%;
-  position: relative;
-  background-color: #dfe6e9;
-  height: 100%;
-  min-width: 400px;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.5);
-}
-
-section.sidebar * {
-  margin-bottom: 15px;
 }
 
 section.content {
@@ -441,58 +419,10 @@ h2#country-name {
   width: 100%;
 }
 
-.credits,
-.warning {
-  font-family: monospace;
-  color: #2c3e50;
-}
-
-.credits a,
-.warning a {
-  font-family: monospace;
-  transition: 0.15s ease-in-out;
-}
-
-.credits a:hover,
-.warning a:hover {
-  color: #2c3e50;
-}
-
 label {
   display: block;
   text-align: left;
   width: 100%;
-}
-
-select,
-.random,
-a.download {
-  outline: none;
-  border: none;
-  padding: 15px;
-  display: block;
-  width: 100%;
-  background-color: #dfe6e9;
-  border-radius: 3px;
-  cursor: pointer;
-  border: 1px solid #2c3e50;
-}
-
-.random:hover,
-a.download:hover {
-  background-color: #2c3e50;
-  color: #dfe6e9;
-}
-
-a.download {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #2c3e50;
-}
-
-a.download svg {
-  margin: 0 15px;
 }
 
 div#toolTip {

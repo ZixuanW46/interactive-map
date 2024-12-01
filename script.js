@@ -19,6 +19,7 @@ function loadMap() {
     var target = e.target;
     if (target.nodeName == "path") {
       target.style.opacity = 0.6;
+      target.style.fill = "#C18C5D";
       var details = e.target.attributes;
 
       // Follow cursor
@@ -40,6 +41,7 @@ function loadMap() {
     var target = e.target;
     if (target.nodeName == "path") {
       target.style.opacity = 1;
+      target.style.fill = "#a9a6a6";
       toolTip.innerHTML = "";
     }
   }
