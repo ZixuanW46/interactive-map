@@ -1,6 +1,15 @@
 function loadMap() {
   var map = document.getElementById("map").contentDocument.querySelector("svg");
   var toolTip = document.getElementById("toolTip");
+  let policyData = null;
+
+  // Fetch policy data
+  fetch("policy.json")
+    .then((response) => response.json())
+    .then((data) => {
+      policyData = data;
+    })
+    .catch((error) => console.error("Error loading policy data:", error));
 
   // Add event listeners to map element
   if (
@@ -17,9 +26,12 @@ function loadMap() {
   // Show tooltip on mousemove
   function mouseEntered(e) {
     var target = e.target;
+
     if (target.nodeName == "path") {
-      target.style.opacity = 0.6;
-      target.style.fill = "#C18C5D";
+      if (!activeElement.includes(target)) {
+        target.style.opacity = 0.6;
+        target.style.fill = "#C18C5D";
+      }
       var details = e.target.attributes;
 
       // Follow cursor
@@ -39,22 +51,56 @@ function loadMap() {
   // Clear tooltip on mouseout
   function mouseGone(e) {
     var target = e.target;
-    if (target.nodeName == "path") {
+    toolTip.innerHTML = "";
+
+    if (target.nodeName == "path" && !activeElement.includes(target)) {
       target.style.opacity = 1;
       target.style.fill = "#a9a6a6";
-      toolTip.innerHTML = "";
+    }
+  }
+  // Track the currently active element
+  let activeElement = [];
+
+  function handleClick(e) {
+    if (e.target.nodeName == "path") {
+      var target = e.target;
+
+      var province = e.target.attributes.name.value;
+      // Reset previously active elements
+      if (activeElement) {
+        activeElement.forEach((elementTarget) => {
+          dehighlightProvince(elementTarget);
+        });
+      }
+      activeElement = [];
+      // Set new active elements
+      if (policyData[province]) {
+        policyData[province].forEach((name) => {
+          const allowedProvinceTarget = map.querySelectorAll(
+            `path[name="${name}"]`
+          );
+          allowedProvinceTarget.forEach((target) => {
+            highlightProvince(target);
+            activeElement.push(target);
+          });
+        });
+      } else {
+        highlightProvince(target);
+        activeElement.push(target);
+      }
     }
   }
 
-  // Go to wikidata page onclick
-  function handleClick(e) {
-    if (e.target.nodeName == "path") {
-      var details = e.target.attributes;
-      window.open(
-        `https://www.wikidata.org/wiki/${details.wikidataid.value}`,
-        "_blank"
-      );
-    }
+  // Highlight Province
+  function highlightProvince(target) {
+    target.style.opacity = 1;
+    target.style.fill = "#C18C5D";
+  }
+
+  // Dehighlight Province
+  function dehighlightProvince(target) {
+    target.style.opacity = 1;
+    target.style.fill = "#a9a6a6";
   }
 }
 

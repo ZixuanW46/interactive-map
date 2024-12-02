@@ -1,0 +1,6 @@
+{
+  "_description": "Listing all provinces that can be entered under the 144 hours visa-free transit policy. The key is the province of entry, the value is the provinces that can be entered from the key province",
+  "Zhejiang": ["Zhejiang"],
+  "Shanghai": ["Shanghai", "Zhejiang", "Jiangsu"],
+  "Jiangsu": ["Jiangsu", "Zhejiang", "Shanghai"]
+}
